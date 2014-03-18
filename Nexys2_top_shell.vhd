@@ -83,22 +83,38 @@ architecture Behavioral of Nexys2_top_shell is
 --Below are declarations for signals that wire-up this top-level module.
 -------------------------------------------------------------------------------------
 
-signal nibble0, nibble1, nibble2, nibble3 : std_logic_vector(3 downto 0);
-signal sseg0_sig, sseg1_sig, sseg2_sig, sseg3_sig : std_logic_vector(7 downto 0);
-signal ClockBus_sig : STD_LOGIC_VECTOR (26 downto 0);
-
-
 --------------------------------------------------------------------------------------
 --Insert your design's component declaration below	
 --------------------------------------------------------------------------------------
+--	COMPONENT MooreElevatorController_Shell
+--	PORT(
+--		clk : in  STD_LOGIC;
+--      reset : in  STD_LOGIC;
+--      stop : in  STD_LOGIC;
+--      up_down : in  STD_LOGIC;
+--      floor : out  STD_LOGIC_VECTOR (3 downto 0)
+--		);
+--	END COMPONENT;
 
-
+	COMPONENT MealyElevatorController_Shell
+	PORT(
+		clk : in STD_LOGIC;
+		reset : in STD_LOGIC;
+		stop : in STD_LOGIC;
+		up_down : in STD_LOGIC;
+		floor : out STD_LOGIC_VECTOR(3 downto 0);
+		nextfloor : out STD_LOGIC_VECTOR(3 downto 0)
+	);
+	END COMPONENT;
 
 --------------------------------------------------------------------------------------
 --Insert any required signal declarations below
 --------------------------------------------------------------------------------------
 
-
+signal nibble0, nibble1, nibble2, nibble3 : std_logic_vector(3 downto 0);
+signal sseg0_sig, sseg1_sig, sseg2_sig, sseg3_sig : std_logic_vector(7 downto 0);
+signal ClockBus_sig : std_logic_vector(26 downto 0);
+signal floor_signal, next_floor : std_logic_vector(3 downto 0);
 
 begin
 
@@ -125,10 +141,10 @@ LED <= CLOCKBUS_SIG(26 DOWNTO 19);
 --		  Example: if you are not using 7-seg display #3 set nibble3 to "0000"
 --------------------------------------------------------------------------------------
 
-nibble0 <= 
-nibble1 <= 
-nibble2 <= 
-nibble3 <= 
+nibble0 <= floor_signal;
+nibble1 <= next_floor;
+nibble2 <= "0000";
+nibble3 <= "0000";
 
 --This code converts a nibble to a value that can be displayed on 7-segment display #0
 	sseg0: nibble_to_sseg PORT MAP(
@@ -172,6 +188,21 @@ nibble3 <=
 --Instantiate the design you with to implement below and start wiring it up!:
 -----------------------------------------------------------------------------
 
+--Moore_ElevatorController : MooreElevatorController_Shell PORT MAP(
+--		clk => ClockBus_sig(25),
+--		reset => switch(7),
+--		stop => switch(0),
+--		up_down => switch(1),
+--		floor => floor_signal
+--	);
+
+	Mealy_ElevatorController : MealyElevatorController_Shell PORT MAP(
+		clk => ClockBus_sig(25),
+		reset => switch(7),
+		stop => switch(0),
+		up_down => switch(1),
+		floor => floor_signal,
+		nextfloor => next_floor
+		);
 
 end Behavioral;
-
