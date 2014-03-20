@@ -1,10 +1,10 @@
 ECE281_Lab3
 ===========
 
-##Elevator Controller
-##C3C Kevin Cabusora
-##ECE 281
-##Dr. Neebel, M6
+#####Elevator Controller
+#####C3C Kevin Cabusora
+#####ECE 281
+#####Dr. Neebel, M6
 
 #Prelab
 
@@ -67,12 +67,15 @@ I fixed the problem by commenting out the Moore_ElevatorController code I proces
 #Demo
 ========
 ##Basic
-- Moore: 
-- Mealy:
+- Moore: Yes (commented out to allow for Mealy)
+- Mealy: Yes
 
 ##B Functionality
-- More Floors (Prime Numbers):
-- Change Imputs (7 Floors):
+- More Floors (Prime Numbers): No
+- Change Imputs (7 Floors): Yes
+
+##Video for Proof
+- Would not upload to GitHub successfully; if you would like to see proof I could show it to you on my phone.
 
 Documentation
 ===========
